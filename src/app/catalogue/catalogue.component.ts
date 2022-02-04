@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Pokemons } from '../models/pokemon.model';
+import { Router } from '@angular/router';
+import { TrainerType } from '../models/trainer.model';
+import { UserApiService } from '../services/user-api.service';
+
+
 
 const URL ='https://pokeapi.co/api/v2/pokemon?limit=1118';
 
@@ -13,12 +18,25 @@ export class CatalogueComponent implements OnInit {
 
   pokemons: Pokemons | any = [];
   p: number | any = 0;
+  storedUser: TrainerType = {name: '', pokemon: [], id: 0};
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private readonly userAPIService: UserApiService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     // sessionStorage.removeItem('pokemons')
     let storedPokemons = sessionStorage.getItem('pokemons')
+    let storedUserStorage = localStorage.getItem('userData')
+    
+    if (!storedUserStorage){
+      this.router.navigate(['landing'])
+    }
+    else {
+      let tmp = JSON.parse(storedUserStorage)
+      this.storedUser.name = tmp.username
+      this.storedUser.id = tmp.id
+      this.storedUser.pokemon = tmp.pokemon
+    }
 
 
     if(storedPokemons !== null){
@@ -44,5 +62,13 @@ export class CatalogueComponent implements OnInit {
   onCatch(name: string) {
     // Add name to Pokemons in userprofile
     console.log('You got a', name)
+    this.storedUser.pokemon.push(name)
+    console.log('Updated user', this.storedUser)
+    this.userAPIService.updatePokemonList(this.storedUser.id, this.storedUser.pokemon)
+    .subscribe(
+      () => {
+        localStorage.setItem('userData', JSON.stringify(this.storedUser))
+      }
+    )
   }
 }

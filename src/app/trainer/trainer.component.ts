@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-trainer',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrainerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  toCatalogue() {
+    this.router.navigate(['catalogue'])
+  }
 }
