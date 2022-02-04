@@ -1,1 +1,15 @@
-<p>catalogue works!</p>
+<h1>Pokemon catalogue</h1>
+
+<div class="list">
+    <ul>
+        <li *ngFor="let item of pokemons.results | paginate: { itemsPerPage: 20, currentPage: p }">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item.url.split('pokemon/').pop().split('/')[0]}}.png">
+            {{ item.name }}
+            <button (click)="onCatch(item.name)">Catch</button>
+        </li>
+    </ul>
+
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
