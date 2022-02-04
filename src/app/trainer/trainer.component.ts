@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainerType } from '../models/trainer.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-trainer',
@@ -13,7 +15,7 @@ export class TrainerComponent implements OnInit {
   // TODO: remove pokemon from list
   // TODO: put pokemon in new object with IDs to make finding images easier
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   private _currentUser :TrainerType | undefined = undefined
 
@@ -77,5 +79,9 @@ export class TrainerComponent implements OnInit {
   logout(){
     // TODO: remove user from local storage
     console.log("logging out...")
+  }
+  
+  toCatalogue() {
+    this.router.navigate(['catalogue'])
   }
 }

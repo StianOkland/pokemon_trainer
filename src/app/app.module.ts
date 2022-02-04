@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { CatalogueComponent } from './catalogue/catalogue.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NoopAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
