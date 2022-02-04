@@ -1,5 +1,5 @@
 export type TrainerType = {
     id: number;
-    name: string;
+    username: string;
     pokemon: string[];
 }
