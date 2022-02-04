@@ -1,1 +1,21 @@
 <p>trainer works!</p>
+
+<div id="username"> 
+    <h1>
+        Hello, <b>{{ getUsername() }}</b>!
+    </h1>
+</div>
+
+<div id="pokemonInfo"> 
+    <h2>
+        Your Pokemons:
+    </h2>
+    <p *ngFor="let pokemon of getPokemonList()">
+        <img [src]="getPokemonImageURL(pokemon)" alt="Image of {{pokemon}}"/>
+        {{pokemon}}
+        <button (click)="deletePokemon(pokemon)">Delete {{pokemon}}</button>
+        
+    </p> 
+</div>
+
+<button (click)="logout()">Logout</button>
