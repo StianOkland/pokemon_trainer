@@ -36,7 +36,7 @@ export class LandingComponent implements OnInit {
     console.log(this.auth.isLoggedIn())
     if(this.auth.isLoggedIn()){
       if(this.storedUser) {
-          this.router.navigate(['trainer'])
+          this.router.navigate(['catalogue'])
       }
     }
 

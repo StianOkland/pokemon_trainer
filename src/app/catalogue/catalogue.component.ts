@@ -58,14 +58,16 @@ export class CatalogueComponent implements OnInit {
 
   onCatch(name: string) {
     // Add name to Pokemons in userprofile
-    console.log('You got a', name)
     this.storedUser.pokemon.push(name)
-    console.log('Updated user', this.storedUser)
     this.userAPIService.updatePokemonList(this.storedUser.id, this.storedUser.pokemon)
     .subscribe(
       () => {
         localStorage.setItem('userData', JSON.stringify(this.storedUser))
       }
     )
+  }
+
+  toTrainer() {
+    this.router.navigate(['trainer'])
   }
 }
