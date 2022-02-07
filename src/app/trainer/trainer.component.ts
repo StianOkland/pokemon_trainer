@@ -12,8 +12,6 @@ export class TrainerComponent implements OnInit {
 
   // TODO: guard, check if in local storage
   // TODO: display pokemon image
-  // TODO: remove pokemon from list
-  // TODO: put pokemon in new object with IDs to make finding images easier
 
   constructor(private router: Router) { }
 
@@ -74,12 +72,18 @@ export class TrainerComponent implements OnInit {
   }
 
   deletePokemon(pokemon: string){
+    // deletes a pokemon
+    // only localStorage will reflect this change, not API
     console.log("deleting: " + pokemon)
-    // TODO: update user in local storage and private
+    let indexToDelete: number | undefined = this._currentUser?.pokemon.indexOf(pokemon)
+
+    if (indexToDelete !== undefined && this._currentUser?.pokemon !== undefined){
+      this._currentUser.pokemon.splice(indexToDelete, 1)
+      localStorage.setItem('userData', JSON.stringify(this._currentUser))
+    }
   }
 
   logout(){
-    // TODO: remove user from local storage
     localStorage.removeItem('userData')
     console.log("logging out...")
     this.router.navigate(['landing'])
