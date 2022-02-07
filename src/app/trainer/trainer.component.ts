@@ -32,8 +32,10 @@ export class TrainerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //todo: redirect if not logged in
     this._currentUser = this.checkStoredUser()
+    if (!this._currentUser){
+      this.router.navigate(['landing'])
+    }
     console.log(this._currentUser)
   }
 
@@ -78,7 +80,9 @@ export class TrainerComponent implements OnInit {
 
   logout(){
     // TODO: remove user from local storage
+    localStorage.removeItem('userData')
     console.log("logging out...")
+    this.router.navigate(['landing'])
   }
   
   toCatalogue() {
