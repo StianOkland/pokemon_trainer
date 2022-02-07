@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainerType } from '../models/trainer.model';
 import { Router } from '@angular/router';
+import { PokemonApiService } from '../services/pokemon-api.service';
+import { Pokemons } from '../models/pokemon.model';
 
 
 @Component({
@@ -10,14 +12,39 @@ import { Router } from '@angular/router';
 })
 export class TrainerComponent implements OnInit {
 
-  // TODO: guard, check if in local storage
-  // TODO: display pokemon image
-  // TODO: remove pokemon from list
-  // TODO: put pokemon in new object with IDs to make finding images easier
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private readonly pokemonApiService: PokemonApiService) { }
 
   private _currentUser :TrainerType | undefined = undefined
+  private _allPokemons : any = []
+
+  ngOnInit(): void {
+    this._currentUser = this.checkStoredUser()
+    console.log(this._currentUser)
+    let storedPokemons = sessionStorage.getItem('pokemons')
+
+    if (!this._currentUser){
+      // user is not logged in -> move to landing page
+      this.router.navigate(['landing'])
+    }
+    else {
+      // make sure pokemons are stored in sessionStorage
+      if(storedPokemons !== null){
+        this._allPokemons = JSON.parse(storedPokemons)
+      }
+      else {
+        this.pokemonApiService.fetchAllPokemons()
+        .subscribe({
+          next: (response) => {
+            this._allPokemons = response.results;
+            sessionStorage.setItem('pokemons', JSON.stringify(response.results))
+          },
+          error: (error) => {
+            console.log(error.message)
+          }
+        })
+      }
+    }
+  }
 
   checkStoredUser() {
     var storedUser :string | null = localStorage.getItem('userData')
@@ -29,11 +56,6 @@ export class TrainerComponent implements OnInit {
     else {
       return JSON.parse(storedUser) as TrainerType;
     }
-  }
-
-  ngOnInit(): void {
-    this._currentUser = this.checkStoredUser()
-    console.log(this._currentUser)
   }
 
   getUsername() {
@@ -64,19 +86,27 @@ export class TrainerComponent implements OnInit {
   }
 
   getPokemonImageURL(pokemon: string){
-    // TODO: get find ID of pokemon
-    let id = 1
-    console.log("finding image of: " + pokemon)
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+    // given pokemon name, finds its ID and returns URL with image of the pokemon
+
+    let pokemonObject = this._allPokemons.find(function (item: any) { return item.name === pokemon })
+    let pokemonID = parseInt(pokemonObject.url.substring(34, pokemonObject.url.length - 1))
+
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`
   }
 
   deletePokemon(pokemon: string){
+    // deletes a pokemon
+    // only localStorage will reflect this change, not API
     console.log("deleting: " + pokemon)
-    // TODO: update user in local storage and private
+    let indexToDelete: number | undefined = this._currentUser?.pokemon.indexOf(pokemon)
+
+    if (indexToDelete !== undefined && this._currentUser?.pokemon !== undefined){
+      this._currentUser.pokemon.splice(indexToDelete, 1)
+      localStorage.setItem('userData', JSON.stringify(this._currentUser))
+    }
   }
 
   logout(){
-    // TODO: remove user from local storage
     localStorage.removeItem('userData')
     localStorage.setItem('isLoggedIn',JSON.stringify(false))
     console.log("logging out...")
