@@ -18,7 +18,7 @@ export class CatalogueComponent implements OnInit {
 
   pokemons: Pokemons | any = [];
   p: number | any = 0;
-  storedUser: TrainerType = {name: '', pokemon: [], id: 0};
+  storedUser: TrainerType = {username: '', pokemon: [], id: 0};
 
 
   constructor(private readonly userAPIService: UserApiService, private http: HttpClient, private router: Router) { }
@@ -33,7 +33,7 @@ export class CatalogueComponent implements OnInit {
     }
     else {
       let tmp = JSON.parse(storedUserStorage)
-      this.storedUser.name = tmp.username
+      this.storedUser.username = tmp.username
       this.storedUser.id = tmp.id
       this.storedUser.pokemon = tmp.pokemon
     }
