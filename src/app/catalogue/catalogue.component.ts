@@ -4,10 +4,7 @@ import { Pokemons } from '../models/pokemon.model';
 import { Router } from '@angular/router';
 import { TrainerType } from '../models/trainer.model';
 import { UserApiService } from '../services/user-api.service';
-
-
-
-const URL ='https://pokeapi.co/api/v2/pokemon?limit=1118';
+import { PokemonApiService } from '../services/pokemon-api.service';
 
 @Component({
   selector: 'app-catalogue',
@@ -21,7 +18,7 @@ export class CatalogueComponent implements OnInit {
   storedUser: TrainerType = {username: '', pokemon: [], id: 0};
 
 
-  constructor(private readonly userAPIService: UserApiService, private http: HttpClient, private router: Router) { }
+  constructor(private readonly userAPIService: UserApiService, private readonly pokemonAPIService: PokemonApiService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     // sessionStorage.removeItem('pokemons')
@@ -43,18 +40,18 @@ export class CatalogueComponent implements OnInit {
       this.pokemons.results = JSON.parse(storedPokemons)
     }
     else {
-      this.http.get<Pokemons>(URL)
-        .subscribe({
-          next: (response) => {
-            console.log('RESPONSE', response)
-  
-            this.pokemons.results = response.results;
-            sessionStorage.setItem('pokemons', JSON.stringify(response.results))
-          },
-          error: (error) => {
-            console.log(error.message)
-          }
-        })
+      this.pokemonAPIService.fetchAllPokemons()
+      .subscribe({
+        next: (response) => {
+          console.log('RESPONSE', response)
+
+          this.pokemons.results = response.results;
+          sessionStorage.setItem('pokemons', JSON.stringify(response.results))
+        },
+        error: (error) => {
+          console.log(error.message)
+        }
+      })
     }
   }
 
