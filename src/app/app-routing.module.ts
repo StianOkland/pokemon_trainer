@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
 
 import { LandingComponent } from './landing/landing.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 
+import { AuthService } from './guard/auth.service';
+import { AuthGuard } from './guard/auth.guard';
+
 const routes: Routes = [
   {path: '', redirectTo:'/landing', pathMatch: 'full'},
 
   {path: 'landing', component: LandingComponent},
-  {path: 'trainer', component: TrainerComponent},
-  {path: 'catalogue', component: CatalogueComponent},
+  {path: 'trainer', component: TrainerComponent, canActivate: [AuthGuard]},
+  {path: 'catalogue', component: CatalogueComponent, canActivate: [AuthGuard]},
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthService]
 })
 export class AppRoutingModule { }
