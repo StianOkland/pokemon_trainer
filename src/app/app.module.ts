@@ -9,6 +9,7 @@ import { TrainerComponent } from './trainer/trainer.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AppComponent,
     LandingComponent,
     TrainerComponent,
-    CatalogueComponent
+    CatalogueComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
