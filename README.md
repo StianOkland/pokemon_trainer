@@ -1,27 +1,23 @@
-# PokemonTrainer
+# Pokemon Trainer in Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
+// TODO: add heroku link<br/>
+A Pokemon trainer app created with Angular, where the user can catch and release Pokemons. The trainer page displays the current user's caugh Pokemon, along with the option to delete each one of them. The catalogue page displays all Pokemons, indicates whether a Pokemon has already been caught, and provides an option to catch the Pokemon if not.<br/>
+This app stores user data in a deployment of [Noroff Assignment API](https://github.com/dewald-els/noroff-assignment-api), and obtains its Pokemon data from [PokeAPI](https://pokeapi.co/).
+<br/>
+This project is deployed [here]().
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+npm install
+```
 
-## Code scaffolding
+## Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+ng serve
+```
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Contributing
+Stian Økland [@StianOkland](https://github.com/StianOkland)<br />
+Andrea Hårseth Nakstad [@andreahn](https://github.com/andreahn)

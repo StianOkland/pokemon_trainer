@@ -70,4 +70,8 @@ export class CatalogueComponent implements OnInit {
   toTrainer() {
     this.router.navigate(['trainer'])
   }
+
+  alreadyCaught(pokemon: string) {
+    return this.storedUser.pokemon.includes(pokemon)
+  }
 }

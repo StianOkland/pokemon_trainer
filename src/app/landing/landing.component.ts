@@ -53,7 +53,7 @@ export class LandingComponent implements OnInit {
           this.currentUser = trainers[0]
           localStorage.setItem('userData', JSON.stringify(this.currentUser))
           this.auth.setLogginTrue()
-          this.router.navigate(['trainer'])
+          this.router.navigate(['catalogue'])
         }
 
         else {
@@ -64,7 +64,7 @@ export class LandingComponent implements OnInit {
               this.currentUser = newUser as TrainerType
               localStorage.setItem('userData', JSON.stringify(this.currentUser))
               this.auth.setLogginTrue()
-              this.router.navigate(['trainer'])
+              this.router.navigate(['catalogue'])
             },
             (error) => {
               console.error(error.message)
