@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { TrainerType } from '../models/trainer.model';
 import { Router } from '@angular/router';
 import { PokemonApiService } from '../services/pokemon-api.service';
-import { Pokemons } from '../models/pokemon.model';
 
 
 @Component({
