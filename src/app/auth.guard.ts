@@ -11,6 +11,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(private auth: AuthService, private router: Router) {}
 
+  // Check if user is logged in. If so, redirect to catalogue-page.
+  // If not logged in, redirect to landing page to log in.
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

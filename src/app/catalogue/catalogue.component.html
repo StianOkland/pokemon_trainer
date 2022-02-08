@@ -3,7 +3,7 @@
     <button (click)="toTrainer()"> To Trainer</button>
     <div class="list">
         <ul>
-            <li *ngFor="let item of pokemons.results | paginate: { itemsPerPage: 20, currentPage: p }">
+            <li *ngFor="let item of pokemons.results | paginate: { itemsPerPage: 20, currentPage: page }">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{item.url.split('pokemon/').pop().split('/')[0]}}.png">
                 <b>{{ item.name }} </b>
                 <span *ngIf="alreadyCaught(item.name)">(Already caught!)</span>
@@ -11,7 +11,7 @@
             </li>
         </ul>
     
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls (pageChange)="page = $event"></pagination-controls>
     </div>
 
 </main>

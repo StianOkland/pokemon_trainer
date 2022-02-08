@@ -14,14 +14,14 @@ import { PokemonApiService } from '../services/pokemon-api.service';
 export class CatalogueComponent implements OnInit {
 
   pokemons: Pokemons | any = [];
-  p: number | any = 0;
+  page: number | any = 0;
   storedUser: TrainerType = {username: '', pokemon: [], id: 0};
 
 
   constructor(private readonly userAPIService: UserApiService, private readonly pokemonAPIService: PokemonApiService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    // sessionStorage.removeItem('pokemons')
+    // Get stored user-info and stored Pokemon's from localStorage and sessionStorage.
     let storedPokemons = sessionStorage.getItem('pokemons')
     let storedUserStorage = localStorage.getItem('userData')
     
@@ -35,7 +35,8 @@ export class CatalogueComponent implements OnInit {
       this.storedUser.pokemon = tmp.pokemon
     }
 
-
+    // Check if stored Pokemon's not empty. If not empty read from sessionStorage.
+    // Else, fetch all Pokemon's from api.
     if(storedPokemons !== null){
       this.pokemons.results = JSON.parse(storedPokemons)
     }
@@ -55,9 +56,8 @@ export class CatalogueComponent implements OnInit {
     }
   }
 
-
+  // When user is catching a Pokemon, add Pokemon to trainers Pokemon-list and update localStorage.
   onCatch(name: string) {
-    // Add name to Pokemons in userprofile
     this.storedUser.pokemon.push(name)
     this.userAPIService.updatePokemonList(this.storedUser.id, this.storedUser.pokemon)
     .subscribe(
@@ -67,10 +67,12 @@ export class CatalogueComponent implements OnInit {
     )
   }
 
+  // Navigate to trainer-page.
   toTrainer() {
     this.router.navigate(['trainer'])
   }
 
+  // If Pokemon is already caught, dont add it to trainers-list.
   alreadyCaught(pokemon: string) {
     return this.storedUser.pokemon.includes(pokemon)
   }

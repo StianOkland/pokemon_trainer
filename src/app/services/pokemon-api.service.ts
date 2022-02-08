@@ -13,10 +13,10 @@ export class PokemonApiService {
 
     constructor(private http: HttpClient) {}
 
+    // Fetches all Pokemon's from pokeapi.
     fetchAllPokemons(): Observable<Pokemons> {
         return this.http.get<Pokemons>(
             `${this._apiURL}`
         )
     }
-
 }
