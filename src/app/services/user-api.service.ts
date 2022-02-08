@@ -15,14 +15,14 @@ export class UserApiService {
   constructor(private http: HttpClient) {}
 
   fetchUserGivenUsername(username: string): Observable<TrainerType[]> {
-    // Fetches user given username. Result will be an array of TrainerType objects of users matching the username
+    // Fetches user given username. Result will be an array of TrainerType objects of users matching the username (observable)
     return this.http.get<TrainerType[]>(
       `${this._apiURL}/trainers?username=${username}`
     );
   }
 
   registerNewUser(username: string): Observable<Object>{
-    // Registers a new user given username. Result will be the new user object
+    // Registers a new user given username. Result will be the new user object (observable)
 
     let body = JSON.stringify({
       username: username,
@@ -33,7 +33,7 @@ export class UserApiService {
   }
 
   updatePokemonList(userID: number, newPokemonArray: string[]): Observable<Object>{
-    // Updates the array of Pokemons a user has given user ID. Result will be the new user object
+    // Updates the array of Pokemons a user has given user ID. Result will be the new user object (observable)
 
     let body = JSON.stringify({
       pokemon: newPokemonArray
