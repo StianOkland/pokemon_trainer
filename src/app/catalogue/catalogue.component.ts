@@ -44,8 +44,6 @@ export class CatalogueComponent implements OnInit {
       this.pokemonAPIService.fetchAllPokemons()
       .subscribe({
         next: (response) => {
-          console.log('RESPONSE', response)
-
           this.pokemons.results = response.results;
           sessionStorage.setItem('pokemons', JSON.stringify(response.results))
         },
