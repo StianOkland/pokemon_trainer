@@ -8,7 +8,8 @@ import { OnInit } from '@angular/core';
 export class AuthService {
 
   constructor() { }
-  loggedIn: boolean = false;
+  loggedInStorage: string | null = localStorage.getItem('isLoggedIn')
+  loggedIn: boolean | null = (this.loggedInStorage !== null)? JSON.parse(this.loggedInStorage) : null;
 
   setLogginTrue(): boolean {
     this.loggedIn = true;
@@ -23,6 +24,9 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    if (this.loggedIn === null){
+      return false;
+    }
     return this.loggedIn;
   }
 }
