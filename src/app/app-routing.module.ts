@@ -5,8 +5,8 @@ import { LandingComponent } from './landing/landing.component';
 import { TrainerComponent } from './trainer/trainer.component';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 
-import { AuthService } from './guard/auth.service';
-import { AuthGuard } from './guard/auth.guard';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo:'/landing', pathMatch: 'full'},

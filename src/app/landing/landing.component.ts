@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { TrainerType } from '../models/trainer.model';
 import { UserApiService } from '../services/user-api.service';
 
-import { AuthService } from '../guard/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-landing',
