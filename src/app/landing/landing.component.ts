@@ -11,7 +11,6 @@ import { AuthService } from '../guard/auth.service';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-  currentUser: TrainerType | undefined = undefined
   storedUser: string | null = null
   storedState: string | null = null
 
@@ -20,9 +19,11 @@ export class LandingComponent implements OnInit {
 
 
   ngOnInit(){
+    // check localStorage to see if user is logged
     this.storedUser = localStorage.getItem('userData')
     this.storedState = localStorage.getItem('isLoggedIn')
 
+    // loggedIn is in local storage -> update auth with its value
     if(this.storedState) {
       if(JSON.parse(this.storedState) == true) {
         this.auth.setLogginTrue()
@@ -32,8 +33,7 @@ export class LandingComponent implements OnInit {
       }
     }
 
-    // localStorage.removeItem('userData')
-    console.log(this.auth.isLoggedIn())
+    // navigate to catalogue if user is stored in localStorage AND logged in in auth guard
     if(this.auth.isLoggedIn()){
       if(this.storedUser) {
           this.router.navigate(['catalogue'])
@@ -50,8 +50,7 @@ export class LandingComponent implements OnInit {
       (trainers) => {
         if (trainers[0]){
           // user exists 
-          this.currentUser = trainers[0]
-          localStorage.setItem('userData', JSON.stringify(this.currentUser))
+          localStorage.setItem('userData', JSON.stringify(trainers[0]))
           this.auth.setLogginTrue()
           this.router.navigate(['catalogue'])
         }
@@ -61,8 +60,7 @@ export class LandingComponent implements OnInit {
           this.userAPIService.registerNewUser(username)
           .subscribe(
             (newUser) => {
-              this.currentUser = newUser as TrainerType
-              localStorage.setItem('userData', JSON.stringify(this.currentUser))
+              localStorage.setItem('userData', JSON.stringify(newUser))
               this.auth.setLogginTrue()
               this.router.navigate(['catalogue'])
             },

@@ -19,7 +19,6 @@ export class TrainerComponent implements OnInit {
 
   ngOnInit(): void {
     this._currentUser = this.checkStoredUser()
-    console.log(this._currentUser)
     let storedPokemons = sessionStorage.getItem('pokemons')
 
     if (!this._currentUser){
@@ -47,6 +46,8 @@ export class TrainerComponent implements OnInit {
   }
 
   checkStoredUser() {
+    // checks whether user is stored in local storage
+    // returns undefined if it's not present, otherwise returns the stored user
     var storedUser :string | null = localStorage.getItem('userData')
 
     if (storedUser === null){
@@ -97,7 +98,6 @@ export class TrainerComponent implements OnInit {
   deletePokemon(pokemon: string){
     // deletes a pokemon
     // only localStorage will reflect this change, not API
-    console.log("deleting: " + pokemon)
     let indexToDelete: number | undefined = this._currentUser?.pokemon.indexOf(pokemon)
 
     if (indexToDelete !== undefined && this._currentUser?.pokemon !== undefined){
@@ -109,7 +109,6 @@ export class TrainerComponent implements OnInit {
   logout(){
     localStorage.removeItem('userData')
     localStorage.setItem('isLoggedIn',JSON.stringify(false))
-    console.log("logging out...")
     this.router.navigate(['landing'])
   }
   
